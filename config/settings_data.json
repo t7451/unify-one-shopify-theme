@@ -9,6 +9,10 @@
  */
 {
   "current": {
+    "color_primary": "#8b7355",
+    "color_accent": "#d4af37",
+    "font_heading": "inter_n4",
+    "font_body": "open_sans_n4",
     "content_for_index": [],
     "blocks": {
       "14060646107696862457": {
