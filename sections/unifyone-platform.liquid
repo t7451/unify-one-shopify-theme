@@ -1,0 +1,765 @@
+{% comment %}
+  JIMBO'S IRON & THREAD SUPPLY CO. — powered by UnifyOne Platform
+  Section: UnifyOne Platform Showcase
+  Version: 1.0.0
+  Description: Showcases the UnifyOne + Netlify + Supabase platform capabilities.
+               Demonstrates real-time data, edge functions, and multi-channel
+               commerce features. Designed as a demo storefront integration panel.
+{% endcomment %}
+
+<section
+  class="unifyone-platform section section--{{ section.settings.bg_style }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="unifyone-platform"
+>
+  <div class="container">
+
+    {%- comment -%} Section Header {%- endcomment -%}
+    <div class="section-header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2>{{ section.settings.heading }}</h2>
+        <span class="heading-rule heading-rule--center"></span>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p>{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Platform Architecture Diagram {%- endcomment -%}
+    <div class="unifyone-arch">
+      <div class="unifyone-arch__node unifyone-arch__node--shopify">
+        <div class="unifyone-arch__node-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </div>
+        <span class="unifyone-arch__node-label">Shopify</span>
+        <span class="unifyone-arch__node-sub">Storefront & Commerce</span>
+      </div>
+      <div class="unifyone-arch__connector" aria-hidden="true">
+        <span class="unifyone-arch__connector-line"></span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="5 12 19 12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+      <div class="unifyone-arch__node unifyone-arch__node--unifyone">
+        <div class="unifyone-arch__node-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </div>
+        <span class="unifyone-arch__node-label">UnifyOne</span>
+        <span class="unifyone-arch__node-sub">Platform Layer</span>
+      </div>
+      <div class="unifyone-arch__connector" aria-hidden="true">
+        <span class="unifyone-arch__connector-line"></span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="5 12 19 12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+      <div class="unifyone-arch__node unifyone-arch__node--netlify">
+        <div class="unifyone-arch__node-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <span class="unifyone-arch__node-label">Netlify</span>
+        <span class="unifyone-arch__node-sub">Edge Functions & CDN</span>
+      </div>
+      <div class="unifyone-arch__connector" aria-hidden="true">
+        <span class="unifyone-arch__connector-line"></span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="5 12 19 12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+      <div class="unifyone-arch__node unifyone-arch__node--supabase">
+        <div class="unifyone-arch__node-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <span class="unifyone-arch__node-label">Supabase</span>
+        <span class="unifyone-arch__node-sub">Postgres + Realtime</span>
+      </div>
+    </div>
+
+    {%- comment -%} Feature Cards {%- endcomment -%}
+    <div class="unifyone-features">
+      {%- for block in section.blocks -%}
+        <div class="unifyone-feature-card" {{ block.shopify_attributes }}>
+          <div class="unifyone-feature-card__icon" aria-hidden="true">
+            {%- case block.settings.icon -%}
+              {%- when 'realtime' -%}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              {%- when 'database' -%}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+              {%- when 'edge' -%}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              {%- when 'auth' -%}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              {%- when 'sync' -%}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+              {%- when 'analytics' -%}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              {%- when 'webhook' -%}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              {%- when 'api' -%}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              {%- else -%}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            {%- endcase -%}
+          </div>
+          <h3 class="unifyone-feature-card__title">{{ block.settings.title }}</h3>
+          <p class="unifyone-feature-card__description">{{ block.settings.description }}</p>
+          {%- if block.settings.badge != blank -%}
+            <span class="unifyone-feature-card__badge">{{ block.settings.badge }}</span>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} Live Demo Panel (Supabase real-time counter) {%- endcomment -%}
+    {%- if section.settings.show_live_demo -%}
+      <div class="unifyone-demo-panel" data-supabase-url="{{ section.settings.supabase_url }}" data-supabase-anon-key="{{ section.settings.supabase_anon_key }}">
+        <div class="unifyone-demo-panel__header">
+          <span class="unifyone-demo-panel__dot unifyone-demo-panel__dot--live" aria-hidden="true"></span>
+          <span class="unifyone-demo-panel__label">Live Platform Data — Supabase Realtime</span>
+        </div>
+
+        <div class="unifyone-demo-panel__stats" id="unifyone-live-stats">
+          <div class="unifyone-demo-stat">
+            <span class="unifyone-demo-stat__value" id="unifyone-stat-orders" aria-live="polite">—</span>
+            <span class="unifyone-demo-stat__label">Orders Synced</span>
+          </div>
+          <div class="unifyone-demo-stat">
+            <span class="unifyone-demo-stat__value" id="unifyone-stat-products" aria-live="polite">—</span>
+            <span class="unifyone-demo-stat__label">Products Indexed</span>
+          </div>
+          <div class="unifyone-demo-stat">
+            <span class="unifyone-demo-stat__value" id="unifyone-stat-latency" aria-live="polite">—</span>
+            <span class="unifyone-demo-stat__label">API Latency (ms)</span>
+          </div>
+          <div class="unifyone-demo-stat">
+            <span class="unifyone-demo-stat__value" id="unifyone-stat-uptime" aria-live="polite">99.9%</span>
+            <span class="unifyone-demo-stat__label">Platform Uptime</span>
+          </div>
+        </div>
+
+        <div class="unifyone-demo-panel__footer">
+          <span class="unifyone-demo-panel__powered">
+            Powered by
+            <strong>UnifyOne</strong> &times; <strong>Netlify</strong> &times; <strong>Supabase</strong>
+          </span>
+          {%- if section.settings.demo_cta_label != blank -%}
+            <a
+              href="{{ section.settings.demo_cta_url | default: '#' }}"
+              class="btn btn--primary btn--sm unifyone-demo-panel__cta"
+              target="_blank"
+              rel="noopener"
+            >{{ section.settings.demo_cta_label }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Section-level CTA {%- endcomment -%}
+    {%- if section.settings.cta_label != blank -%}
+      <div class="unifyone-platform__footer">
+        <a
+          href="{{ section.settings.cta_url | default: '#' }}"
+          class="btn btn--secondary btn--lg"
+          target="_blank"
+          rel="noopener"
+        >{{ section.settings.cta_label }}</a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<style>
+  /* ===== Architecture Diagram ===== */
+  .unifyone-arch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-12);
+    padding: var(--space-8);
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+  }
+
+  .unifyone-arch__node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: 110px;
+  }
+
+  .unifyone-arch__node-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  }
+
+  .unifyone-arch__node-icon:hover { transform: translateY(-2px); }
+
+  .unifyone-arch__node-icon svg { width: 26px; height: 26px; }
+
+  .unifyone-arch__node--shopify .unifyone-arch__node-icon {
+    background-color: rgba(150, 191, 71, 0.1);
+    border-color: rgba(150, 191, 71, 0.3);
+    color: #96bf47;
+  }
+
+  .unifyone-arch__node--unifyone .unifyone-arch__node-icon {
+    background-color: rgba(230, 126, 34, 0.1);
+    border-color: rgba(230, 126, 34, 0.3);
+    color: var(--color-accent-primary);
+  }
+
+  .unifyone-arch__node--netlify .unifyone-arch__node-icon {
+    background-color: rgba(0, 193, 191, 0.1);
+    border-color: rgba(0, 193, 191, 0.3);
+    color: #00C1BF;
+  }
+
+  .unifyone-arch__node--supabase .unifyone-arch__node-icon {
+    background-color: rgba(62, 207, 142, 0.1);
+    border-color: rgba(62, 207, 142, 0.3);
+    color: #3ECF8E;
+  }
+
+  .unifyone-arch__node-label {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--color-text-primary);
+  }
+
+  .unifyone-arch__node-sub {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .unifyone-arch__connector {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    color: var(--color-border-strong);
+    flex-shrink: 0;
+  }
+
+  .unifyone-arch__connector svg { width: 18px; height: 18px; }
+
+  /* ===== Feature Cards ===== */
+  .unifyone-features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-5);
+    margin-bottom: var(--space-10);
+  }
+
+  .unifyone-feature-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    transition: border-color var(--transition-normal), transform var(--transition-normal), box-shadow var(--transition-normal);
+    position: relative;
+  }
+
+  .unifyone-feature-card:hover {
+    border-color: var(--color-accent-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  }
+
+  .unifyone-feature-card__icon {
+    width: 48px;
+    height: 48px;
+    background-color: rgba(230, 126, 34, 0.1);
+    border: 1px solid rgba(230, 126, 34, 0.2);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent-primary);
+    margin-bottom: var(--space-4);
+    transition: background-color var(--transition-normal);
+  }
+
+  .unifyone-feature-card:hover .unifyone-feature-card__icon {
+    background-color: rgba(230, 126, 34, 0.18);
+  }
+
+  .unifyone-feature-card__icon svg { width: 22px; height: 22px; }
+
+  .unifyone-feature-card__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-tight);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .unifyone-feature-card__description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: 0;
+  }
+
+  .unifyone-feature-card__badge {
+    display: inline-block;
+    margin-top: var(--space-4);
+    padding: 2px var(--space-2);
+    background-color: rgba(230, 126, 34, 0.15);
+    border: 1px solid rgba(230, 126, 34, 0.3);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-heading);
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-widest);
+    text-transform: uppercase;
+    color: var(--color-accent-primary);
+  }
+
+  /* ===== Live Demo Panel ===== */
+  .unifyone-demo-panel {
+    background: linear-gradient(135deg, rgba(26, 37, 47, 0.95) 0%, rgba(33, 47, 61, 0.95) 100%);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    margin-bottom: var(--space-10);
+  }
+
+  .unifyone-demo-panel__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .unifyone-demo-panel__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .unifyone-demo-panel__dot--live {
+    background-color: var(--color-iron-green);
+    box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.2);
+    animation: livePulse 2s ease-in-out infinite;
+  }
+
+  @keyframes livePulse {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.2); }
+    50% { box-shadow: 0 0 0 6px rgba(39, 174, 96, 0.05); }
+  }
+
+  .unifyone-demo-panel__label {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .unifyone-demo-panel__stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    padding: var(--space-8) var(--space-6);
+  }
+
+  .unifyone-demo-stat {
+    text-align: center;
+    padding-inline: var(--space-4);
+    border-right: 1px solid var(--color-border);
+  }
+
+  .unifyone-demo-stat:last-child { border-right: none; }
+
+  .unifyone-demo-stat__value {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: var(--font-weight-black);
+    color: var(--color-accent-primary);
+    line-height: 1;
+    margin-bottom: var(--space-2);
+    transition: color var(--transition-fast);
+  }
+
+  .unifyone-demo-stat__value--updating {
+    color: var(--color-iron-green);
+  }
+
+  .unifyone-demo-stat__label {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .unifyone-demo-panel__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-6);
+    border-top: 1px solid var(--color-border);
+    background-color: rgba(0, 0, 0, 0.15);
+    flex-wrap: wrap;
+  }
+
+  .unifyone-demo-panel__powered {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .unifyone-demo-panel__powered strong {
+    color: var(--color-text-secondary);
+  }
+
+  /* Section Footer */
+  .unifyone-platform__footer {
+    text-align: center;
+    margin-top: var(--space-4);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .unifyone-features { grid-template-columns: repeat(2, 1fr); }
+    .unifyone-demo-panel__stats { grid-template-columns: repeat(2, 1fr); }
+    .unifyone-demo-stat:nth-child(2) { border-right: none; }
+    .unifyone-demo-stat:nth-child(3),
+    .unifyone-demo-stat:nth-child(4) {
+      border-top: 1px solid var(--color-border);
+      padding-top: var(--space-6);
+      margin-top: var(--space-2);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .unifyone-arch {
+      gap: var(--space-2);
+      padding: var(--space-5);
+    }
+
+    .unifyone-arch__connector { display: none; }
+    .unifyone-arch__node { min-width: 80px; }
+    .unifyone-arch__node-icon { width: 44px; height: 44px; }
+    .unifyone-arch__node-icon svg { width: 20px; height: 20px; }
+    .unifyone-arch__node-sub { display: none; }
+
+    .unifyone-features { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 560px) {
+    .unifyone-demo-panel__stats { grid-template-columns: 1fr 1fr; }
+    .unifyone-demo-stat:nth-child(2) { border-right: none; }
+    .unifyone-demo-panel__footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+
+<script>
+(function () {
+  var panel = document.querySelector('[data-section-type="unifyone-platform"] .unifyone-demo-panel');
+  if (!panel) return;
+
+  var supabaseUrl = panel.getAttribute('data-supabase-url');
+  var supabaseKey = panel.getAttribute('data-supabase-anon-key');
+
+  var statOrders  = document.getElementById('unifyone-stat-orders');
+  var statProducts = document.getElementById('unifyone-stat-products');
+  var statLatency = document.getElementById('unifyone-stat-latency');
+
+  function animateStat(el, value) {
+    if (!el) return;
+    el.classList.add('unifyone-demo-stat__value--updating');
+    el.textContent = value;
+    setTimeout(function () { el.classList.remove('unifyone-demo-stat__value--updating'); }, 600);
+  }
+
+  function fetchSupabaseStats() {
+    if (!supabaseUrl || !supabaseKey || supabaseUrl === '' || supabaseKey === '') {
+      // Demo mode — show simulated data
+      showDemoData();
+      return;
+    }
+
+    var t0 = Date.now();
+    fetch(supabaseUrl + '/rest/v1/platform_stats?select=*&limit=1', {
+      headers: {
+        'apikey': supabaseKey,
+        'Authorization': 'Bearer ' + supabaseKey
+      }
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      var latency = Date.now() - t0;
+      if (data && data[0]) {
+        animateStat(statOrders, (data[0].orders_synced || 0).toLocaleString());
+        animateStat(statProducts, (data[0].products_indexed || 0).toLocaleString());
+      }
+      animateStat(statLatency, latency);
+    })
+    .catch(function () {
+      showDemoData();
+    });
+  }
+
+  function showDemoData() {
+    // Simulate realistic-looking live counters
+    var baseOrders = 8420 + Math.floor(Math.random() * 50);
+    var baseProducts = 512 + Math.floor(Math.random() * 8);
+    var baseLatency = 18 + Math.floor(Math.random() * 12);
+    animateStat(statOrders, baseOrders.toLocaleString());
+    animateStat(statProducts, baseProducts.toLocaleString());
+    animateStat(statLatency, baseLatency);
+  }
+
+  // Initial load
+  fetchSupabaseStats();
+
+  // Poll every 15 seconds to show "live" data
+  setInterval(fetchSupabaseStats, 15000);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "UnifyOne Platform",
+  "tag": "section",
+  "class": "section-unifyone-platform",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Platform Powered"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Built on the UnifyOne Stack"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "This storefront runs on the UnifyOne platform — connecting Shopify commerce with Netlify edge functions and a Supabase real-time database for a unified, high-performance shopping experience."
+    },
+    {
+      "type": "header",
+      "content": "Live Demo Panel"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_live_demo",
+      "label": "Show Live Demo Panel",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "supabase_url",
+      "label": "Supabase Project URL",
+      "info": "e.g. https://xyzabc.supabase.co — leave blank for demo data"
+    },
+    {
+      "type": "text",
+      "id": "supabase_anon_key",
+      "label": "Supabase Anon Key",
+      "info": "Public anon key — never use service_role here"
+    },
+    {
+      "type": "text",
+      "id": "demo_cta_label",
+      "label": "Demo CTA Button Label",
+      "default": "Explore the Platform →"
+    },
+    {
+      "type": "url",
+      "id": "demo_cta_url",
+      "label": "Demo CTA URL"
+    },
+    {
+      "type": "header",
+      "content": "Section CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button Label",
+      "default": "Learn More About UnifyOne"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "bg_style",
+      "label": "Background",
+      "options": [
+        { "value": "dark", "label": "Dark" },
+        { "value": "surface", "label": "Surface" },
+        { "value": "light", "label": "Light" }
+      ],
+      "default": "dark"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Platform Feature",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "realtime", "label": "Realtime / Heartbeat" },
+            { "value": "database", "label": "Database" },
+            { "value": "edge", "label": "Edge / CDN" },
+            { "value": "auth", "label": "Authentication" },
+            { "value": "sync", "label": "Sync" },
+            { "value": "analytics", "label": "Analytics" },
+            { "value": "webhook", "label": "Webhooks / API" },
+            { "value": "api", "label": "Code / API" }
+          ],
+          "default": "realtime"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "Real-Time Sync"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Inventory, orders, and customer data stay perfectly in sync across every channel in milliseconds."
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge Text",
+          "info": "Short label e.g. 'Live', 'Beta', 'New'"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "UnifyOne Platform",
+      "settings": {
+        "eyebrow": "Platform Powered",
+        "heading": "Built on the UnifyOne Stack",
+        "subheading": "This storefront runs on the UnifyOne platform — connecting Shopify commerce with Netlify edge functions and a Supabase real-time database for a unified, high-performance shopping experience.",
+        "show_live_demo": true,
+        "demo_cta_label": "Explore the Platform →",
+        "cta_label": "Learn More About UnifyOne"
+      },
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "realtime",
+            "title": "Real-Time Inventory",
+            "description": "Stock levels update instantly across Shopify, your dashboard, and customer-facing pages via Supabase Realtime subscriptions.",
+            "badge": "Live"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "edge",
+            "title": "Edge-First Delivery",
+            "description": "Netlify edge functions serve personalised promotions, geo-pricing, and A/B tests at the CDN edge — zero cold starts.",
+            "badge": "Global"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "database",
+            "title": "Unified Data Layer",
+            "description": "Postgres on Supabase acts as the single source of truth — connecting orders, loyalty points, CRM events, and analytics.",
+            "badge": "Postgres"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "auth",
+            "title": "Secure Auth & Accounts",
+            "description": "Supabase Auth handles customer login, Row Level Security, and session management with built-in OAuth and magic links.",
+            "badge": "RLS"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "sync",
+            "title": "Shopify Webhooks",
+            "description": "Every order, product update, and fulfillment event is instantly captured by Netlify functions and mirrored to Supabase.",
+            "badge": "Auto"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "analytics",
+            "title": "Built-In Analytics",
+            "description": "Sales trends, conversion funnels, and customer cohorts — all queryable in real time directly from your Supabase dashboard.",
+            "badge": "SQL"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "webhook",
+            "title": "API-First Design",
+            "description": "Every UnifyOne capability is exposed via a clean REST + GraphQL API so you can extend and integrate with any tool.",
+            "badge": "REST"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "api",
+            "title": "Open & Composable",
+            "description": "No lock-in. Use the UnifyOne SDK, bring your own front-end, or plug directly into existing Shopify apps and workflows.",
+            "badge": "Open"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

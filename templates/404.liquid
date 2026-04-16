@@ -1,0 +1,143 @@
+{% comment %}
+  JIMBO'S IRON & THREAD SUPPLY CO.
+  Template: 404 Not Found
+  Version: 2.0.0
+{% endcomment %}
+
+<div class="error-page">
+  <div class="container">
+    <div class="error-page__inner">
+
+      <div class="error-page__code" aria-hidden="true">404</div>
+
+      <div class="error-page__icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+      </div>
+
+      <h1 class="error-page__heading">Page Not Found</h1>
+      <p class="error-page__text">
+        Looks like this page got lost in the workshop. The link may be broken, or the page may have been moved or removed.
+      </p>
+
+      <div class="error-page__actions">
+        <a href="/" class="btn btn--primary btn--lg">Back to Home</a>
+        <a href="/collections/all" class="btn btn--secondary btn--lg">Shop All Products</a>
+      </div>
+
+      {%- comment -%} Quick search {%- endcomment -%}
+      <div class="error-page__search">
+        <p class="error-page__search-label">Or try searching for what you need:</p>
+        <form action="/search" method="get" class="error-page__search-form" role="search">
+          <input type="hidden" name="type" value="product">
+          <div class="error-page__search-group">
+            <label for="error-search" class="sr-only">Search</label>
+            <input
+              type="search"
+              id="error-search"
+              name="q"
+              class="form-input error-page__search-input"
+              placeholder="Search products…"
+              autocomplete="off"
+            >
+            <button type="submit" class="btn btn--primary error-page__search-btn" aria-label="Search">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .error-page {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-bg-dark);
+    padding-block: var(--space-20);
+  }
+
+  .error-page .container { width: 100%; }
+
+  .error-page__inner {
+    text-align: center;
+    max-width: 560px;
+    margin-inline: auto;
+  }
+
+  .error-page__code {
+    font-family: var(--font-heading);
+    font-size: clamp(6rem, 15vw, 10rem);
+    font-weight: var(--font-weight-black);
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--color-border-strong);
+    margin-bottom: var(--space-4);
+    letter-spacing: -0.05em;
+  }
+
+  .error-page__icon {
+    width: 72px;
+    height: 72px;
+    margin-inline: auto;
+    margin-bottom: var(--space-6);
+    color: var(--color-accent-primary);
+    opacity: 0.9;
+  }
+
+  .error-page__icon svg { width: 100%; height: 100%; }
+
+  .error-page__heading {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    color: var(--color-white);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-tight);
+    margin-bottom: var(--space-4);
+  }
+
+  .error-page__text {
+    font-size: var(--font-size-md);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--space-8);
+  }
+
+  .error-page__actions {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-12);
+  }
+
+  .error-page__search-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-3);
+  }
+
+  .error-page__search-group {
+    display: flex;
+    gap: 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--color-border-strong);
+  }
+
+  .error-page__search-input {
+    flex: 1;
+    border: none;
+    border-radius: 0;
+    background-color: var(--color-bg-surface);
+  }
+
+  .error-page__search-btn {
+    border-radius: 0;
+    padding-inline: var(--space-4);
+    flex-shrink: 0;
+  }
+
+  .error-page__search-btn svg { width: 18px; height: 18px; }
+</style>

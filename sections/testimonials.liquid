@@ -1,0 +1,555 @@
+{% comment %}
+  JIMBO'S IRON & THREAD SUPPLY CO.
+  Section: Testimonials / Social Proof
+  Version: 1.0.0
+  Description: Configurable customer review cards with star ratings,
+               attribution, and optional Judge.me integration.
+{% endcomment %}
+
+<section
+  class="testimonials-section section section--{{ section.settings.bg_style }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="testimonials"
+>
+  <div class="container">
+
+    {%- comment -%} Section Header {%- endcomment -%}
+    <div class="section-header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2>{{ section.settings.heading }}</h2>
+        <span class="heading-rule heading-rule--center"></span>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p>{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Aggregate Rating {%- endcomment -%}
+    {%- if section.settings.show_aggregate -%}
+      <div class="testimonials-aggregate">
+        <div class="testimonials-aggregate__stars" aria-label="{{ section.settings.aggregate_rating }} out of 5 stars">
+          {%- assign full_stars = section.settings.aggregate_rating | floor -%}
+          {%- assign has_half = false -%}
+          {%- assign remainder = section.settings.aggregate_rating | minus: full_stars -%}
+          {%- if remainder >= 0.5 -%}{%- assign has_half = true -%}{%- endif -%}
+          {%- for i in (1..5) -%}
+            {%- if i <= full_stars -%}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            {%- elsif has_half and i == full_stars | plus: 1 -%}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="half-star-grad-{{ section.id }}" x1="0" x2="1" y1="0" y2="0"><stop offset="50%" stop-color="currentColor"/><stop offset="50%" stop-color="transparent"/></linearGradient></defs><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="url(#half-star-grad-{{ section.id }})" stroke="currentColor" stroke-width="1"/></svg>
+            {%- else -%}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <span class="testimonials-aggregate__rating">{{ section.settings.aggregate_rating }}</span>
+        <span class="testimonials-aggregate__count">from {{ section.settings.review_count }} verified reviews</span>
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Testimonial Cards {%- endcomment -%}
+    <div class="testimonials-grid testimonials-grid--{{ section.settings.columns }}">
+      {%- for block in section.blocks -%}
+        <article class="testimonial-card" {{ block.shopify_attributes }}>
+
+          {%- comment -%} Stars {%- endcomment -%}
+          <div class="testimonial-card__stars" aria-label="{{ block.settings.rating }} out of 5 stars">
+            {%- assign full = block.settings.rating | floor -%}
+            {%- for i in (1..5) -%}
+              {%- if i <= full -%}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 0 0 .95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 0 0-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z"/></svg>
+              {%- else -%}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 0 0 .95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 0 0-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z"/></svg>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          {%- comment -%} Quote {%- endcomment -%}
+          {%- if block.settings.quote != blank -%}
+            <blockquote class="testimonial-card__quote">
+              <p>{{ block.settings.quote }}</p>
+            </blockquote>
+          {%- endif -%}
+
+          {%- comment -%} Attribution {%- endcomment -%}
+          <footer class="testimonial-card__attribution">
+            <div class="testimonial-card__avatar" aria-hidden="true">
+              {%- if block.settings.avatar != blank -%}
+                <img
+                  src="{{ block.settings.avatar | image_url: width: 80 }}"
+                  alt="{{ block.settings.author | escape }}"
+                  loading="lazy"
+                  width="40"
+                  height="40"
+                >
+              {%- else -%}
+                <span class="testimonial-card__avatar-initials">
+                  {{- block.settings.author | slice: 0, 1 | upcase -}}
+                </span>
+              {%- endif -%}
+            </div>
+            <div class="testimonial-card__author-info">
+              <span class="testimonial-card__author">{{ block.settings.author | default: 'Verified Buyer' }}</span>
+              {%- if block.settings.location != blank -%}
+                <span class="testimonial-card__location">{{ block.settings.location }}</span>
+              {%- endif -%}
+            </div>
+            {%- if block.settings.verified -%}
+              <div class="testimonial-card__verified" aria-label="Verified purchase">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Verified</span>
+              </div>
+            {%- endif -%}
+          </footer>
+
+          {%- if block.settings.product_title != blank -%}
+            <div class="testimonial-card__product">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              <a href="{{ block.settings.product_url | default: '#' }}" class="testimonial-card__product-link">
+                {{ block.settings.product_title }}
+              </a>
+            </div>
+          {%- endif -%}
+
+        </article>
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} CTA {%- endcomment -%}
+    {%- if section.settings.cta_label != blank -%}
+      <div class="testimonials-section__footer">
+        <a href="{{ section.settings.cta_url | default: '#reviews' }}" class="btn btn--secondary btn--lg">
+          {{ section.settings.cta_label }}
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<style>
+  /* Aggregate */
+  .testimonials-aggregate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-10);
+    flex-wrap: wrap;
+  }
+
+  .testimonials-aggregate__stars {
+    display: flex;
+    gap: 2px;
+    color: var(--color-accent-gold);
+  }
+
+  .testimonials-aggregate__stars svg { width: 22px; height: 22px; }
+
+  .testimonials-aggregate__rating {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-black);
+    color: var(--color-text-primary);
+  }
+
+  .testimonials-aggregate__count {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  /* Grid */
+  .testimonials-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .testimonials-grid--2 { grid-template-columns: repeat(2, 1fr); }
+  .testimonials-grid--3 { grid-template-columns: repeat(3, 1fr); }
+
+  /* Card */
+  .testimonial-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    transition: border-color var(--transition-normal), transform var(--transition-normal), box-shadow var(--transition-normal);
+  }
+
+  .testimonial-card:hover {
+    border-color: var(--color-accent-gold);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  }
+
+  .testimonial-card__stars {
+    display: flex;
+    gap: 2px;
+    color: var(--color-accent-gold);
+  }
+
+  .testimonial-card__stars svg { width: 16px; height: 16px; }
+
+  .testimonial-card__quote {
+    flex: 1;
+    margin: 0;
+  }
+
+  .testimonial-card__quote p {
+    font-size: var(--font-size-md);
+    color: var(--color-text-primary);
+    line-height: var(--line-height-relaxed);
+    font-style: italic;
+    margin: 0;
+  }
+
+  .testimonial-card__quote p::before { content: '\201C'; }
+  .testimonial-card__quote p::after  { content: '\201D'; }
+
+  /* Attribution */
+  .testimonial-card__attribution {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .testimonial-card__avatar {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--color-border);
+  }
+
+  .testimonial-card__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .testimonial-card__avatar-initials {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-surface) 100%);
+    font-family: var(--font-heading);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-accent-primary);
+  }
+
+  .testimonial-card__author-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .testimonial-card__author {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--color-text-primary);
+  }
+
+  .testimonial-card__location {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+  }
+
+  .testimonial-card__verified {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-heading);
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-wider);
+    text-transform: uppercase;
+    color: var(--color-iron-green);
+    flex-shrink: 0;
+  }
+
+  .testimonial-card__verified svg { width: 13px; height: 13px; }
+
+  .testimonial-card__product {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+  }
+
+  .testimonial-card__product svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+  .testimonial-card__product-link {
+    color: var(--color-accent-primary);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+  }
+
+  .testimonial-card__product-link:hover { text-decoration: underline; }
+
+  .testimonials-section__footer {
+    text-align: center;
+    margin-top: var(--space-12);
+  }
+
+  @media (max-width: 900px) {
+    .testimonials-grid--3 { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .testimonials-grid--3,
+    .testimonials-grid--2 { grid-template-columns: 1fr; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "class": "section-testimonials",
+  "max_blocks": 9,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Trusted by Craftsmen"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Don't just take our word for it — here's what our customers have to say."
+    },
+    {
+      "type": "header",
+      "content": "Aggregate Rating"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_aggregate",
+      "label": "Show Overall Rating",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "aggregate_rating",
+      "min": 1,
+      "max": 5,
+      "step": 0.1,
+      "label": "Overall Rating",
+      "default": 4.9
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Review Count Label",
+      "default": "2,400+"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "Columns",
+      "options": [
+        { "value": "2", "label": "2 Columns" },
+        { "value": "3", "label": "3 Columns" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "bg_style",
+      "label": "Background",
+      "options": [
+        { "value": "dark", "label": "Dark" },
+        { "value": "surface", "label": "Surface" },
+        { "value": "light", "label": "Light" }
+      ],
+      "default": "surface"
+    },
+    {
+      "type": "header",
+      "content": "CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button Label",
+      "default": "Read All Reviews"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Star Rating",
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review Text",
+          "default": "Best supplier I've used in 20 years of fabrication. Fast shipping, quality that actually matches the description, and a team that clearly knows their stuff."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Customer Name",
+          "default": "T. Rodriguez"
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Location / Title",
+          "default": "Metal Fabricator, Austin TX"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Show Verified Badge",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "product_title",
+          "label": "Product Name (optional)"
+        },
+        {
+          "type": "url",
+          "id": "product_url",
+          "label": "Product URL (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "settings": {
+        "eyebrow": "Customer Reviews",
+        "heading": "Trusted by Craftsmen",
+        "subheading": "Don't just take our word for it — here's what our customers have to say.",
+        "show_aggregate": true,
+        "aggregate_rating": 4.9,
+        "review_count": "2,400+",
+        "columns": "3",
+        "cta_label": "Read All Reviews"
+      },
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "Best supplier I've used in 20 years of fabrication. Fast shipping, quality that actually matches the description, and a team that clearly knows their stuff.",
+            "author": "T. Rodriguez",
+            "location": "Metal Fabricator, Austin TX",
+            "verified": true,
+            "product_title": "Industrial Thread Pack"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "The metalwork supplies are top-tier and the hardware selection is unmatched. Ordered Tuesday afternoon, arrived Thursday. Will absolutely order again.",
+            "author": "M. Calloway",
+            "location": "Welder & Sculptor, Portland OR",
+            "verified": true
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "Our whole workshop switched to Jimbo's 6 months ago. The workwear alone has outlasted everything else we've tried — and we work hard.",
+            "author": "K. Sato",
+            "location": "Shop Owner, Denver CO",
+            "verified": true,
+            "product_title": "Heavy-Duty Workwear"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "I've been looking for a reliable fastener supplier forever. Consistent quality, great pricing on bulk orders, and the packaging keeps everything protected.",
+            "author": "B. Okafor",
+            "location": "Structural Contractor, Atlanta GA",
+            "verified": true
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "Customer support actually answered the phone and knew what they were talking about. A real person who understood metalwork. Rare these days.",
+            "author": "D. Hernandez",
+            "location": "Blacksmith, Tucson AZ",
+            "verified": true
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 4,
+            "quote": "Great quality across the board. Slight delay on my last order but they reached out proactively. The products themselves are worth every cent.",
+            "author": "J. Park",
+            "location": "Industrial Designer, Seattle WA",
+            "verified": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
