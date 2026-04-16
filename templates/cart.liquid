@@ -620,32 +620,61 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  var cartDebounceTimer;
+
+  function showCartError(message) {
+    var existing = document.getElementById('cart-error-msg');
+    if (existing) existing.remove();
+    var el = document.createElement('p');
+    el.id = 'cart-error-msg';
+    el.setAttribute('role', 'alert');
+    el.style.cssText = 'color:var(--color-ember-red);font-size:var(--font-size-sm);margin-top:var(--space-3);text-align:center;';
+    el.textContent = message || 'Something went wrong. Please refresh and try again.';
+    var form = document.getElementById('cart-form');
+    if (form) form.appendChild(el);
+  }
+
   // Remove item buttons
   document.querySelectorAll('[data-remove-key]').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var key = this.getAttribute('data-remove-key');
+      btn.disabled = true;
       fetch('/cart/change.js', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: key, quantity: 0 })
-      }).then(function () {
+      })
+      .then(function (res) {
+        if (!res.ok) throw new Error('Cart update failed');
         window.location.reload();
+      })
+      .catch(function () {
+        btn.disabled = false;
+        showCartError('Could not remove item. Please try again.');
       });
     });
   });
 
-  // Quantity updates
+  // Quantity updates — single shared timer prevents race conditions across inputs
   document.querySelectorAll('[data-cart-item-key]').forEach(function (input) {
-    var debounceTimer;
     input.addEventListener('change', function () {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(function () {
+      var changedInput = input;
+      clearTimeout(cartDebounceTimer);
+      cartDebounceTimer = setTimeout(function () {
         fetch('/cart/change.js', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: input.getAttribute('data-cart-item-key'), quantity: parseInt(input.value, 10) })
-        }).then(function () {
+          body: JSON.stringify({
+            id: changedInput.getAttribute('data-cart-item-key'),
+            quantity: parseInt(changedInput.value, 10) || 0
+          })
+        })
+        .then(function (res) {
+          if (!res.ok) throw new Error('Quantity update failed');
           window.location.reload();
+        })
+        .catch(function () {
+          showCartError('Could not update quantity. Please refresh and try again.');
         });
       }, 400);
     });

@@ -482,60 +482,92 @@
   var supabaseUrl = panel.getAttribute('data-supabase-url');
   var supabaseKey = panel.getAttribute('data-supabase-anon-key');
 
-  var statOrders  = document.getElementById('unifyone-stat-orders');
+  var statOrders   = document.getElementById('unifyone-stat-orders');
   var statProducts = document.getElementById('unifyone-stat-products');
-  var statLatency = document.getElementById('unifyone-stat-latency');
+  var statLatency  = document.getElementById('unifyone-stat-latency');
+
+  // Demo baseline values — shown when no Supabase URL is configured
+  var DEMO_BASE_ORDERS   = 8420;
+  var DEMO_JITTER_ORDERS = 50;
+  var DEMO_BASE_PRODUCTS = 512;
+  var DEMO_JITTER_PRODUCTS = 8;
+  var DEMO_BASE_LATENCY_MS = 18;
+  var DEMO_JITTER_LATENCY_MS = 12;
+
+  var POLL_INTERVAL_MS = 15000;
+  var ANIMATE_DURATION_MS = 600;
+
+  var pollTimer = null;
 
   function animateStat(el, value) {
     if (!el) return;
     el.classList.add('unifyone-demo-stat__value--updating');
     el.textContent = value;
-    setTimeout(function () { el.classList.remove('unifyone-demo-stat__value--updating'); }, 600);
+    setTimeout(function () { el.classList.remove('unifyone-demo-stat__value--updating'); }, ANIMATE_DURATION_MS);
   }
 
   function fetchSupabaseStats() {
-    if (!supabaseUrl || !supabaseKey || supabaseUrl === '' || supabaseKey === '') {
-      // Demo mode — show simulated data
+    if (!supabaseUrl || !supabaseKey) {
       showDemoData();
       return;
     }
 
     var t0 = Date.now();
+    // Note: supabaseKey is the public anon key. Supabase Row Level Security
+    // (RLS) restricts what the anon role can read. Never use service_role here.
     fetch(supabaseUrl + '/rest/v1/platform_stats?select=*&limit=1', {
       headers: {
         'apikey': supabaseKey,
         'Authorization': 'Bearer ' + supabaseKey
       }
     })
-    .then(function (res) { return res.json(); })
+    .then(function (res) {
+      if (!res.ok) throw new Error('Supabase request failed: ' + res.status);
+      return res.json();
+    })
     .then(function (data) {
       var latency = Date.now() - t0;
       if (data && data[0]) {
-        animateStat(statOrders, (data[0].orders_synced || 0).toLocaleString());
+        animateStat(statOrders,   (data[0].orders_synced   || 0).toLocaleString());
         animateStat(statProducts, (data[0].products_indexed || 0).toLocaleString());
       }
       animateStat(statLatency, latency);
     })
     .catch(function () {
+      // Fall back to demo data if the Supabase call fails
       showDemoData();
     });
   }
 
   function showDemoData() {
-    // Simulate realistic-looking live counters
-    var baseOrders = 8420 + Math.floor(Math.random() * 50);
-    var baseProducts = 512 + Math.floor(Math.random() * 8);
-    var baseLatency = 18 + Math.floor(Math.random() * 12);
-    animateStat(statOrders, baseOrders.toLocaleString());
-    animateStat(statProducts, baseProducts.toLocaleString());
-    animateStat(statLatency, baseLatency);
+    var orders   = DEMO_BASE_ORDERS   + Math.floor(Math.random() * DEMO_JITTER_ORDERS);
+    var products = DEMO_BASE_PRODUCTS + Math.floor(Math.random() * DEMO_JITTER_PRODUCTS);
+    var latency  = DEMO_BASE_LATENCY_MS + Math.floor(Math.random() * DEMO_JITTER_LATENCY_MS);
+    animateStat(statOrders,   orders.toLocaleString());
+    animateStat(statProducts, products.toLocaleString());
+    animateStat(statLatency,  latency);
   }
 
-  // Initial load
-  fetchSupabaseStats();
+  function startPolling() {
+    fetchSupabaseStats();
+    pollTimer = setInterval(fetchSupabaseStats, POLL_INTERVAL_MS);
+  }
 
-  // Poll every 15 seconds to show "live" data
-  setInterval(fetchSupabaseStats, 15000);
+  function stopPolling() {
+    clearInterval(pollTimer);
+    pollTimer = null;
+  }
+
+  // Pause polling when the page is hidden to avoid wasted requests
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      stopPolling();
+    } else {
+      startPolling();
+    }
+  });
+
+  startPolling();
 })();
 </script>
 

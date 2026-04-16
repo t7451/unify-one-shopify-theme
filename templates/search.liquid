@@ -17,7 +17,7 @@
       <h1 class="search-page__title">
         {%- if search.performed -%}
           {%- if search.results_count > 0 -%}
-            {{ search.results_count }} {{ search.results_count | pluralize: 'Result', 'Results' }} for &ldquo;{{ search.terms | escape }}&rdquo;
+            {{ search.results_count }} {{ search.results_count | pluralize: 'result', 'results' }} for &ldquo;{{ search.terms | escape }}&rdquo;
           {%- else -%}
             No results for &ldquo;{{ search.terms | escape }}&rdquo;
           {%- endif -%}
@@ -28,7 +28,7 @@
 
       {%- comment -%} Search Form {%- endcomment -%}
       <form action="/search" method="get" class="search-page__form" role="search">
-        <input type="hidden" name="type" value="product">
+        {%- comment -%} No type restriction — search returns products, articles, and pages {%- endcomment -%}
         <div class="search-page__input-group">
           <label for="search-input" class="sr-only">Search products</label>
           <input
