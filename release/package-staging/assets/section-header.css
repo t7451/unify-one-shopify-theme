@@ -1,0 +1,225 @@
+/* Section-Specific CSS - Header */
+/* This CSS is scoped to the header section only */
+/* Include in section file: {{ 'section-header.css' | asset_url | stylesheet_tag }} */
+/* 
+ * IMPORTANT: This file depends on CSS variables defined in custom-styles.css
+ * Ensure custom-styles.css is loaded in theme.liquid before this section CSS
+ */
+
+/* ============================================
+   HEADER SECTION STYLES
+   ============================================ */
+
+/* Section-scoped styles use data attributes for specificity */
+[data-section-type="header"] {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--bg-white);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-normal);
+}
+
+[data-section-type="header"].scrolled {
+  box-shadow: var(--shadow-md);
+}
+
+/* Header Wrapper */
+[data-section-type="header"] .header__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) 0;
+  gap: var(--space-md);
+}
+
+/* Logo Styles */
+[data-section-type="header"] .header__logo {
+  flex: 0 0 auto;
+}
+
+[data-section-type="header"] .logo-link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+[data-section-type="header"] .logo-link img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+[data-section-type="header"] .logo-text {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-dark);
+}
+
+/* Navigation Styles */
+[data-section-type="header"] .header__nav {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+}
+
+[data-section-type="header"] .nav-list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  list-style: none;
+  margin: 0;
+}
+
+[data-section-type="header"] .nav-item {
+  margin: 0;
+}
+
+[data-section-type="header"] .nav-link {
+  color: var(--text-dark);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  padding: var(--space-sm);
+}
+
+[data-section-type="header"] .nav-link:hover {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* Mobile Menu Toggle */
+[data-section-type="header"] .header__menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: var(--space-sm);
+  cursor: pointer;
+  color: var(--text-dark);
+}
+
+[data-section-type="header"] .menu-toggle__icon {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: currentColor;
+  position: relative;
+  transition: background-color var(--transition-fast);
+}
+
+[data-section-type="header"] .menu-toggle__icon::before,
+[data-section-type="header"] .menu-toggle__icon::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  position: absolute;
+  left: 0;
+  transition: transform var(--transition-normal);
+}
+
+[data-section-type="header"] .menu-toggle__icon::before {
+  top: -8px;
+}
+
+[data-section-type="header"] .menu-toggle__icon::after {
+  bottom: -8px;
+}
+
+/* Cart Icon */
+[data-section-type="header"] .header__cart {
+  flex: 0 0 auto;
+  position: relative;
+}
+
+[data-section-type="header"] .cart-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  padding: var(--space-sm);
+}
+
+[data-section-type="header"] .cart-link:hover {
+  color: var(--primary-color);
+}
+
+[data-section-type="header"] .cart-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 var(--space-xs);
+  background-color: var(--primary-color);
+  color: var(--bg-white);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  border-radius: var(--radius-full);
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS - Shopify Standard
+   ============================================ */
+
+/* Tablet: 768px - Shopify's medium breakpoint */
+@media screen and (max-width: 768px) {
+  [data-section-type="header"] .header__nav {
+    display: none;
+  }
+
+  [data-section-type="header"] .header__menu-toggle {
+    display: block;
+  }
+
+  [data-section-type="header"] .header__wrapper {
+    padding: var(--space-sm) 0;
+  }
+}
+
+/* Mobile: 480px - Shopify's small breakpoint */
+@media screen and (max-width: 480px) {
+  [data-section-type="header"] .logo-text {
+    font-size: var(--font-size-lg);
+  }
+
+  [data-section-type="header"] .header__wrapper {
+    gap: var(--space-sm);
+  }
+}
+
+/* ============================================
+   LIQUID VARIABLE INTEGRATION
+   ============================================ */
+
+/* These styles work with Shopify Liquid variables */
+/* Example: Section settings can override these */
+
+[data-section-type="header"][data-sticky="false"] {
+  position: relative;
+}
+
+[data-section-type="header"][data-transparent="true"] {
+  background-color: transparent;
+  border-bottom-color: transparent;
+}
+
+[data-section-type="header"][data-transparent="true"] .nav-link,
+[data-section-type="header"][data-transparent="true"] .cart-link {
+  color: var(--bg-white);
+}
+
+/* Dark mode support via Liquid settings */
+[data-section-type="header"][data-color-scheme="dark"] {
+  background-color: var(--text-dark);
+  color: var(--bg-white);
+}
+
+[data-section-type="header"][data-color-scheme="dark"] .nav-link,
+[data-section-type="header"][data-color-scheme="dark"] .cart-link,
+[data-section-type="header"][data-color-scheme="dark"] .logo-text {
+  color: var(--bg-white);
+}

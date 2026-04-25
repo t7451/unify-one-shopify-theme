@@ -1,0 +1,31 @@
+{% comment %}
+  Reusable Menu Links Snippet
+  
+  Usage:
+    {% render 'menu-links', 
+      menu: section.settings.menu,
+      item_class: 'nav-item',
+      link_class: 'nav-link'
+    %}
+  
+  Parameters:
+    - menu: The menu handle string (required, e.g., 'main-menu' or 'footer')
+    - item_class: CSS class for list items (optional, default: 'menu-item')
+    - link_class: CSS class for links (optional, default: 'menu-link')
+{% endcomment %}
+
+{%- liquid
+  assign menu = menu | default: 'main-menu'
+  assign item_class = item_class | default: 'menu-item'
+  assign link_class = link_class | default: 'menu-link'
+-%}
+
+{% if linklists[menu] %}
+  {% for link in linklists[menu].links %}
+    <li class="{{ item_class }}">
+      <a href="{{ link.url }}" class="{{ link_class }}">
+        {{ link.title }}
+      </a>
+    </li>
+  {% endfor %}
+{% endif %}

@@ -1,0 +1,104 @@
+{% comment %}
+  Header Section
+  Displays site navigation, logo, and cart
+{% endcomment %}
+
+{%- comment -%} Section-specific CSS {%- endcomment -%}
+{{ 'section-header.css' | asset_url | stylesheet_tag }}
+
+<header class="site-header" role="banner" data-section-id="{{ section.id }}" data-section-type="header">
+  <div class="container">
+    <div class="header__wrapper">
+      
+      {%- comment -%} Mobile Menu Toggle {%- endcomment -%}
+      <button 
+        type="button" 
+        class="header__menu-toggle" 
+        data-menu-toggle
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu">
+        <span class="menu-toggle__icon"></span>
+      </button>
+
+      {%- comment -%} Site Logo {%- endcomment -%}
+      <div class="header__logo">
+        <a href="{{ routes.root_url }}" class="logo-link" aria-label="Home">
+          {% if section.settings.logo != blank %}
+            <img 
+              src="{{ section.settings.logo | img_url: '200x' }}" 
+              alt="{{ shop.name }}"
+              width="{{ section.settings.logo_width }}"
+              height="auto"
+              loading="eager">
+          {% else %}
+            <span class="logo-text">{{ shop.name }}</span>
+          {% endif %}
+        </a>
+      </div>
+
+      {%- comment -%} Desktop Navigation {%- endcomment -%}
+      <nav class="header__nav" role="navigation" aria-label="Main navigation">
+        <ul class="nav-list">
+          {% render 'menu-links', 
+            menu: section.settings.menu,
+            item_class: 'nav-item',
+            link_class: 'nav-link' %}
+        </ul>
+      </nav>
+
+      {%- comment -%} Cart Icon {%- endcomment -%}
+      <div class="header__icons">
+        <a href="{{ routes.cart_url }}" class="header__cart" aria-label="Shopping cart">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="cart-count" data-cart-count>{{ cart.item_count }}</span>
+        </a>
+      </div>
+    </div>
+
+    {%- comment -%} Mobile Menu {%- endcomment -%}
+    <div class="mobile-menu" data-mobile-menu id="mobile-menu" aria-hidden="true">
+      <nav class="mobile-menu__nav" role="navigation" aria-label="Mobile navigation">
+        <ul class="mobile-nav-list">
+          {% render 'menu-links', 
+            menu: section.settings.menu,
+            item_class: 'mobile-nav-item',
+            link_class: 'mobile-nav-link' %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "default": 150,
+      "unit": "px",
+      "label": "Logo width"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Menu"
+    }
+  ]
+}
+{% endschema %}

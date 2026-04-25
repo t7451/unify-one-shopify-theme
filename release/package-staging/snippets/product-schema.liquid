@@ -1,0 +1,41 @@
+{% comment %}
+  Product Schema Markup (JSON-LD)
+  Generates structured data for better SEO
+  Usage: {% include 'product-schema' %}
+{% endcomment %}
+
+{% if product %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "description": {{ product.description | strip_html | truncate: 500 | json }},
+  "image": [
+    {% for image in product.images limit: 5 %}
+      {{ image | img_url: '1200x' | prepend: 'https:' | json }}{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  "sku": {{ product.selected_or_first_available_variant.sku | json }},
+  "brand": {
+    "@type": "Brand",
+    "name": {{ shop.name | json }}
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": {{ shop.url | append: product.url | json }},
+    "priceCurrency": {{ shop.currency | json }},
+    "price": {{ product.selected_or_first_available_variant.price | divided_by: 100.0 | json }},
+    "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+    "itemCondition": "https://schema.org/NewCondition"
+  }
+  {% if product.metafields.reviews.rating %}
+  ,"aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": {{ product.metafields.reviews.rating | json }},
+    "reviewCount": {{ product.metafields.reviews.count | json }}
+  }
+  {% endif %}
+}
+</script>
+{% endif %}

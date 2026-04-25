@@ -1,0 +1,243 @@
+/* Section-Specific CSS - Footer */
+/* This CSS is scoped to the footer section only */
+/* Include in section file: {{ 'section-footer.css' | asset_url | stylesheet_tag }} */
+/* 
+ * IMPORTANT: This file depends on CSS variables defined in custom-styles.css
+ * Ensure custom-styles.css is loaded in theme.liquid before this section CSS
+ */
+
+/* ============================================
+   FOOTER SECTION STYLES
+   ============================================ */
+
+/* Section-scoped styles use data attributes for specificity */
+[data-section-type="footer"] {
+  background-color: var(--text-dark);
+  color: var(--bg-white);
+  padding: var(--space-2xl) 0 var(--space-md);
+  margin-top: var(--space-2xl);
+}
+
+/* Footer Wrapper */
+[data-section-type="footer"] .footer__wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+/* Footer Column */
+[data-section-type="footer"] .footer__column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+[data-section-type="footer"] .footer__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-sm);
+  color: var(--bg-white);
+}
+
+/* Footer Links */
+[data-section-type="footer"] .footer__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+[data-section-type="footer"] .footer__link-item {
+  margin-bottom: var(--space-sm);
+}
+
+[data-section-type="footer"] .footer__link {
+  color: var(--bg-light);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+[data-section-type="footer"] .footer__link:hover {
+  color: var(--bg-white);
+  text-decoration: underline;
+}
+
+/* Footer Bottom */
+[data-section-type="footer"] .footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: var(--space-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+[data-section-type="footer"] .footer__copyright {
+  font-size: var(--font-size-sm);
+  color: var(--bg-light);
+}
+
+/* Social Media Icons */
+[data-section-type="footer"] .footer__social {
+  display: flex;
+  gap: var(--space-md);
+}
+
+[data-section-type="footer"] .social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  color: var(--bg-white);
+  text-decoration: none;
+  transition: all var(--transition-normal);
+}
+
+[data-section-type="footer"] .social-link:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+/* Newsletter Signup */
+[data-section-type="footer"] .footer__newsletter {
+  max-width: 400px;
+}
+
+[data-section-type="footer"] .newsletter__description {
+  margin-bottom: var(--space-md);
+  color: var(--bg-light);
+}
+
+[data-section-type="footer"] .newsletter__form {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+[data-section-type="footer"] .newsletter__input {
+  flex: 1;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--bg-white);
+  font-size: var(--font-size-base);
+}
+
+[data-section-type="footer"] .newsletter__input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+[data-section-type="footer"] .newsletter__input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+[data-section-type="footer"] .newsletter__button {
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--primary-color);
+  color: var(--bg-white);
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+[data-section-type="footer"] .newsletter__button:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Payment Icons */
+[data-section-type="footer"] .footer__payment-icons {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+[data-section-type="footer"] .payment-icon {
+  height: 30px;
+  width: auto;
+  opacity: 0.7;
+  transition: opacity var(--transition-fast);
+}
+
+[data-section-type="footer"] .payment-icon:hover {
+  opacity: 1;
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS - Shopify Standard
+   ============================================ */
+
+/* Tablet: 768px */
+@media screen and (max-width: 768px) {
+  [data-section-type="footer"] .footer__wrapper {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  [data-section-type="footer"] .footer__bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  [data-section-type="footer"] .footer__social {
+    justify-content: center;
+  }
+}
+
+/* Mobile: 480px */
+@media screen and (max-width: 480px) {
+  [data-section-type="footer"] {
+    padding: var(--space-xl) 0 var(--space-md);
+  }
+
+  [data-section-type="footer"] .footer__wrapper {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  [data-section-type="footer"] .newsletter__form {
+    flex-direction: column;
+  }
+
+  [data-section-type="footer"] .newsletter__button {
+    width: 100%;
+  }
+}
+
+/* ============================================
+   LIQUID VARIABLE INTEGRATION
+   ============================================ */
+
+/* Support for different color schemes via section settings */
+[data-section-type="footer"][data-color-scheme="light"] {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+[data-section-type="footer"][data-color-scheme="light"] .footer__title,
+[data-section-type="footer"][data-color-scheme="light"] .footer__link {
+  color: var(--text-dark);
+}
+
+[data-section-type="footer"][data-color-scheme="light"] .footer__copyright,
+[data-section-type="footer"][data-color-scheme="light"] .newsletter__description {
+  color: var(--text-light);
+}
+
+[data-section-type="footer"][data-color-scheme="light"] .social-link {
+  background-color: var(--bg-white);
+  color: var(--text-dark);
+}
+
+[data-section-type="footer"][data-color-scheme="light"] .newsletter__input {
+  border-color: var(--border-color);
+  background-color: var(--bg-white);
+  color: var(--text-dark);
+}

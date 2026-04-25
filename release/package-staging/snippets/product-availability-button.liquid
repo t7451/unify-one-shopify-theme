@@ -1,0 +1,52 @@
+{% comment %}
+  Product Availability Button Snippet
+  Renders an "Add to Cart" button or "Sold Out" button based on product availability
+  
+  Accepts:
+  - product: {Object} Product object (required)
+  - variant_id: {String} Specific variant ID to add (optional, defaults to selected_or_first_available_variant)
+  - quantity: {String} Quantity to add (optional, defaults to "1")
+  - button_class: {String} Additional CSS classes for the button (optional)
+  - button_size: {String} Button size modifier: 'sm', 'lg' (optional, defaults to standard)
+  - button_type: {String} Button type: 'submit' or 'button' (optional, defaults to 'button')
+  
+  Usage:
+  {% render 'product-availability-button', 
+    product: product,
+    button_class: 'product__add-to-cart',
+    button_size: 'lg',
+    button_type: 'submit' %}
+{% endcomment %}
+
+{%- liquid
+  if product == blank or product.selected_or_first_available_variant == blank
+    echo '<!-- Product parameter is required and must have variants -->'
+  else
+    assign variant_id = variant_id | default: product.selected_or_first_available_variant.id
+    assign quantity = quantity | default: '1'
+    assign button_type = button_type | default: 'button'
+    assign button_size_class = ''
+    if button_size == 'sm'
+      assign button_size_class = ' btn--sm'
+    elsif button_size == 'lg'
+      assign button_size_class = ' btn--lg'
+    endif
+-%}
+
+<button 
+  type="{{ button_type }}"
+  {% if button_type == 'submit' %}name="add"{% endif %}
+  class="btn btn--primary{{ button_size_class }}{% if button_class %} {{ button_class }}{% endif %}"
+  {% if button_type == 'button' %}
+    data-add-to-cart="{{ variant_id }}"
+    data-quantity="{{ quantity }}"
+  {% endif %}
+  {% unless product.available %}disabled{% endunless %}>
+  {% if product.available %}
+    Add to Cart
+  {% else %}
+    Sold Out
+  {% endif %}
+</button>
+
+{%- endif -%}

@@ -1,0 +1,45 @@
+{% comment %}
+  Breadcrumb Navigation with Schema Markup
+  Usage: {% include 'breadcrumbs' %}
+{% endcomment %}
+
+<nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+  <ol class="breadcrumbs__list" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a href="{{ routes.root_url }}" itemprop="item">
+        <span itemprop="name">Home</span>
+      </a>
+      <meta itemprop="position" content="1" />
+    </li>
+    
+    {% if collection %}
+      <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="{{ collection.url }}" itemprop="item">
+          <span itemprop="name">{{ collection.title }}</span>
+        </a>
+        <meta itemprop="position" content="2" />
+      </li>
+    {% endif %}
+    
+    {% if product %}
+      {% if collection %}
+        <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <span itemprop="name">{{ product.title }}</span>
+          <meta itemprop="position" content="3" />
+        </li>
+      {% else %}
+        <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <span itemprop="name">{{ product.title }}</span>
+          <meta itemprop="position" content="2" />
+        </li>
+      {% endif %}
+    {% endif %}
+    
+    {% if page %}
+      <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <span itemprop="name">{{ page.title }}</span>
+        <meta itemprop="position" content="2" />
+      </li>
+    {% endif %}
+  </ol>
+</nav>

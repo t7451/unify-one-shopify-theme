@@ -1,6 +1,6 @@
 {
   "name": "unify-one-shopify-theme",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Reusable Shopify Liquid theme template for modern commerce stores",
   "main": "index.js",
   "scripts": {

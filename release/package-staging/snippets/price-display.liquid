@@ -1,0 +1,26 @@
+{% comment %}
+  Reusable Price Display Snippet
+  
+  Usage:
+    {% render 'price-display', 
+      product: product,
+      wrapper_class: 'product__price'
+    %}
+  
+  Parameters:
+    - product: The product object (required)
+    - wrapper_class: CSS class for wrapper div (optional, default: 'price-wrapper')
+{% endcomment %}
+
+{%- liquid
+  assign wrapper_class = wrapper_class | default: 'price-wrapper'
+-%}
+
+{% if product %}
+  <div class="{{ wrapper_class }}">
+    <span class="price">{{ product.price | money }}</span>
+    {% if product.compare_at_price > product.price %}
+      <span class="price--compare">{{ product.compare_at_price | money }}</span>
+    {% endif %}
+  </div>
+{% endif %}

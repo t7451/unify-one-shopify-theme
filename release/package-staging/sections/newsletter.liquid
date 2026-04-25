@@ -1,0 +1,342 @@
+{% comment %}
+  UNIFYONE MODERN COMMERCE THEME
+  Section: Newsletter / Email Capture
+  Version: 2.0.0
+  Description: Email capture section with optional discount incentive,
+               Klaviyo/Shopify email form integration, and brand imagery.
+{% endcomment %}
+
+<section
+  class="newsletter-section section section--{{ section.settings.bg_style }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="newsletter"
+>
+  <div class="container container--narrow">
+    <div class="newsletter-section__inner">
+
+      {%- comment -%} Icon / Logo Mark {%- endcomment -%}
+      <div class="newsletter-section__icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="newsletter-section__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="newsletter-section__subheading">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+
+      {%- comment -%} Email Form {%- endcomment -%}
+      {%- form 'customer', id: 'newsletter-form', class: 'newsletter-section__form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter,theme-subscriber">
+
+        <div class="newsletter-section__input-group">
+          <label for="newsletter-email" class="sr-only">Email address</label>
+          <input
+            type="email"
+            id="newsletter-email"
+            name="contact[email]"
+            class="newsletter-section__input form-input"
+            placeholder="{{ section.settings.placeholder | default: 'Enter your email address' }}"
+            required
+            autocomplete="email"
+            aria-label="Email address"
+          >
+          <button type="submit" class="btn btn--primary newsletter-section__submit">
+            {{ section.settings.button_label | default: 'Subscribe' }}
+          </button>
+        </div>
+
+        {%- if form.posted_successfully? -%}
+          <p class="newsletter-section__success" role="status">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            {{ section.settings.success_message | default: "You're in! Check your inbox for a welcome discount." }}
+          </p>
+        {%- endif -%}
+
+        {%- if form.errors -%}
+          <p class="newsletter-section__error" role="alert">
+            {{ form.errors.translated_fields['email'] | capitalize }}
+            {{ form.errors.messages['email'] }}
+          </p>
+        {%- endif -%}
+      {%- endform -%}
+
+      {%- if section.settings.disclaimer != blank -%}
+        <p class="newsletter-section__disclaimer">{{ section.settings.disclaimer }}</p>
+      {%- endif -%}
+
+      {%- comment -%} Social Proof {%- endcomment -%}
+      {%- if section.settings.show_social_proof -%}
+        <div class="newsletter-section__proof">
+          <div class="newsletter-section__proof-avatars" aria-hidden="true">
+            <div class="newsletter-section__avatar newsletter-section__avatar--1"></div>
+            <div class="newsletter-section__avatar newsletter-section__avatar--2"></div>
+            <div class="newsletter-section__avatar newsletter-section__avatar--3"></div>
+          </div>
+          <p class="newsletter-section__proof-text">
+            <strong>{{ section.settings.subscriber_count | default: '2,400+' }}</strong> subscribers already joined
+          </p>
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .newsletter-section__inner {
+    text-align: center;
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  .newsletter-section__icon {
+    width: 64px;
+    height: 64px;
+    background-color: rgba(230, 126, 34, 0.1);
+    border: 1px solid rgba(230, 126, 34, 0.2);
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-inline: auto;
+    margin-bottom: var(--space-6);
+    color: var(--color-accent-primary);
+  }
+
+  .newsletter-section__icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .newsletter-section__heading {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .newsletter-section__subheading {
+    font-size: var(--font-size-md);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-8);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Form */
+  .newsletter-section__form {
+    width: 100%;
+  }
+
+  .newsletter-section__input-group {
+    display: flex;
+    gap: 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--color-border-strong);
+    transition: border-color var(--transition-normal);
+  }
+
+  .newsletter-section__input-group:focus-within {
+    border-color: var(--color-accent-primary);
+    box-shadow: var(--focus-ring);
+  }
+
+  .newsletter-section__input {
+    flex: 1;
+    border: none;
+    border-radius: 0;
+    background-color: var(--color-bg-dark);
+    padding: var(--space-4) var(--space-5);
+    font-size: var(--font-size-base);
+  }
+
+  .newsletter-section__input:focus {
+    box-shadow: none;
+    border-color: transparent;
+  }
+
+  .newsletter-section__submit {
+    border-radius: 0;
+    flex-shrink: 0;
+    padding-inline: var(--space-6);
+    font-size: var(--font-size-sm);
+  }
+
+  /* Feedback */
+  .newsletter-section__success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    font-size: var(--font-size-sm);
+    color: var(--color-iron-green);
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+  }
+
+  .newsletter-section__success svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .newsletter-section__error {
+    margin-top: var(--space-3);
+    font-size: var(--font-size-sm);
+    color: var(--color-ember-red);
+  }
+
+  .newsletter-section__disclaimer {
+    margin-top: var(--space-4);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Social Proof */
+  .newsletter-section__proof {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .newsletter-section__proof-avatars {
+    display: flex;
+    margin-right: var(--space-1);
+  }
+
+  .newsletter-section__avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--color-bg-dark);
+    background-color: var(--color-bg-surface);
+    margin-left: -8px;
+  }
+
+  .newsletter-section__avatar:first-child {
+    margin-left: 0;
+  }
+
+  .newsletter-section__avatar--1 { background-color: #8B4513; }
+  .newsletter-section__avatar--2 { background-color: #2C3E50; }
+  .newsletter-section__avatar--3 { background-color: #E67E22; }
+
+  .newsletter-section__proof-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  .newsletter-section__proof-text strong {
+    color: var(--color-text-primary);
+  }
+
+  @media (max-width: 480px) {
+    .newsletter-section__input-group {
+      flex-direction: column;
+    }
+
+    .newsletter-section__submit {
+      border-radius: 0;
+      width: 100%;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "tag": "section",
+  "class": "section-newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Stay in the Loop"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Get Product Updates and Offers"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Subscribe for product launches, promotions, and curated recommendations."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Input Placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Subscribe & Save"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success Message",
+      "default": "You're in! Check your inbox for your welcome discount."
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Disclaimer Text",
+      "default": "By subscribing, you agree to our Privacy Policy. Unsubscribe anytime."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_proof",
+      "label": "Show Subscriber Count",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "subscriber_count",
+      "label": "Subscriber Count",
+      "default": "2,400+"
+    },
+    {
+      "type": "select",
+      "id": "bg_style",
+      "label": "Background",
+      "options": [
+        { "value": "dark", "label": "Dark" },
+        { "value": "surface", "label": "Surface" },
+        { "value": "light", "label": "Light" }
+      ],
+      "default": "surface"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter",
+      "settings": {
+        "eyebrow": "Stay in the Loop",
+        "heading": "Get Product Updates and Offers",
+        "subheading": "Subscribe for product launches, promotions, and curated recommendations.",
+        "button_label": "Subscribe & Save",
+        "show_social_proof": true
+      }
+    }
+  ]
+}
+{% endschema %}

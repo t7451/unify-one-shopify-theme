@@ -1,0 +1,70 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "close": "Close",
+      "previous": "Previous",
+      "next": "Next",
+      "loading": "Loading..."
+    },
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "404": {
+      "title": "404 Page Not Found",
+      "subtext": "The page you requested does not exist."
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "back_to_collection": "Back to {{ title }}"
+    },
+    "password_page": {
+      "opening_soon": "Opening Soon"
+    },
+    "social": {
+      "share": "Share"
+    },
+    "search": {
+      "search": "Search",
+      "placeholder": "Search our store"
+    },
+    "newsletter_form": {
+      "newsletter_email": "Enter your email",
+      "submit": "Subscribe",
+      "confirmation": "Thanks for subscribing!"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "quantity": "Quantity",
+      "view_full_details": "View full details"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your cart",
+      "remove": "Remove",
+      "subtotal": "Subtotal",
+      "update": "Update",
+      "checkout": "Check out",
+      "empty": "Your cart is currently empty.",
+      "continue_browsing": "Continue browsing",
+      "close_cart": "Close cart"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "My Account"
+    },
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "sign_in": "Sign in"
+    }
+  }
+}
