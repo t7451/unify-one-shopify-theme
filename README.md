@@ -32,6 +32,11 @@ npm run dev
 ```
 
 `npm run dev` expects `SHOPIFY_FLAG_STORE` to be set in your shell environment.
+Example:
+```bash
+export SHOPIFY_FLAG_STORE=your-store.myshopify.com
+npm run dev
+```
 
 ## Linting and Formatting
 ```bash
