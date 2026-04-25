@@ -1,5 +1,5 @@
 {% comment %}
-  JIMBO'S IRON & THREAD SUPPLY CO.
+  UNIFYONE MODERN COMMERCE THEME
   Section: Newsletter / Email Capture
   Version: 2.0.0
   Description: Email capture section with optional discount incentive,
@@ -33,7 +33,7 @@
 
       {%- comment -%} Email Form {%- endcomment -%}
       {%- form 'customer', id: 'newsletter-form', class: 'newsletter-section__form' -%}
-        <input type="hidden" name="contact[tags]" value="newsletter,jimbo-subscriber">
+        <input type="hidden" name="contact[tags]" value="newsletter,theme-subscriber">
 
         <div class="newsletter-section__input-group">
           <label for="newsletter-email" class="sr-only">Email address</label>
@@ -80,7 +80,7 @@
             <div class="newsletter-section__avatar newsletter-section__avatar--3"></div>
           </div>
           <p class="newsletter-section__proof-text">
-            <strong>{{ section.settings.subscriber_count | default: '2,400+' }}</strong> craftsmen already subscribed
+            <strong>{{ section.settings.subscriber_count | default: '2,400+' }}</strong> subscribers already joined
           </p>
         </div>
       {%- endif -%}
@@ -264,19 +264,19 @@
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow Text",
-      "default": "Join the Crew"
+      "default": "Stay in the Loop"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Get 10% Off Your First Order"
+      "default": "Get Product Updates and Offers"
     },
     {
       "type": "textarea",
       "id": "subheading",
       "label": "Subheading",
-      "default": "Subscribe for exclusive deals, new arrivals, and craftsman tips. No spam — just the good stuff."
+      "default": "Subscribe for product launches, promotions, and curated recommendations."
     },
     {
       "type": "text",
@@ -330,9 +330,9 @@
     {
       "name": "Newsletter",
       "settings": {
-        "eyebrow": "Join the Crew",
-        "heading": "Get 10% Off Your First Order",
-        "subheading": "Subscribe for exclusive deals, new arrivals, and craftsman tips. No spam — just the good stuff.",
+        "eyebrow": "Stay in the Loop",
+        "heading": "Get Product Updates and Offers",
+        "subheading": "Subscribe for product launches, promotions, and curated recommendations.",
         "button_label": "Subscribe & Save",
         "show_social_proof": true
       }

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
   {%- comment -%} ============================================================
-    JIMBO'S IRON & THREAD SUPPLY CO.
+    UNIFYONE MODERN COMMERCE THEME
     Layout: theme.liquid — v2.0.0
     Integrations: Meta Pixel, Structured Data, Loyalty, Shopify Inbox,
                   Judge.me, Affiliate UTM, CSP, Open Graph, Twitter Card
@@ -45,15 +45,15 @@
   ============================================================ {%- endcomment -%}
   <title>
     {%- if template == 'index' -%}
-      Jimbo's Iron & Thread Supply Co. — Built for the Craft. Built to Last.
+      {{ shop.name | default: "UnifyOne Modern Commerce" }}
     {%- elsif page_title -%}
-      {{ page_title }} | Jimbo's Iron & Thread Supply Co.
+      {{ page_title }} | {{ shop.name }}
     {%- else -%}
-      Jimbo's Iron & Thread Supply Co.
+      {{ shop.name }}
     {%- endif -%}
   </title>
 
-  <meta name="description" content="{{ page_description | default: 'Premium metalwork supplies, industrial hardware, and precision thread for craftsmen and fabricators. Free shipping over $75.' | escape }}">
+  <meta name="description" content="{{ page_description | default: 'A flexible Shopify theme template for modern retail and lifestyle brands.' | escape }}">
   <link rel="canonical" href="{{ canonical_url }}">
 
   {%- comment -%} Robots {%- endcomment -%}
@@ -70,7 +70,7 @@
   <meta property="og:title" content="{{ page_title | default: shop.name | escape }}">
   <meta property="og:description" content="{{ page_description | default: shop.description | escape }}">
   <meta property="og:url" content="{{ canonical_url }}">
-  <meta property="og:site_name" content="Jimbo's Iron & Thread Supply Co.">
+  <meta property="og:site_name" content="{{ shop.name }}">
   {%- if page_image -%}
     <meta property="og:image" content="{{ page_image | image_url: width: 1200 | prepend: 'https:' }}">
     <meta property="og:image:width" content="1200">
@@ -97,8 +97,8 @@
   {%- comment -%} ============================================================
     Favicons
   ============================================================ {%- endcomment -%}
-  <link rel="icon" type="image/png" href="{{ 'jimbos-logo.png' | asset_url }}">
-  <link rel="apple-touch-icon" href="{{ 'jimbos-logo.png' | asset_url }}">
+  <link rel="icon" type="image/svg+xml" href="{{ settings.favicon | image_url: width: 64 | default: ('favicon-placeholder.svg' | asset_url) }}">
+  <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180 | default: ('favicon-placeholder.svg' | asset_url) }}">
   <meta name="theme-color" content="#1A252F">
 
   {%- comment -%} ============================================================
@@ -184,8 +184,8 @@
       </div>
       <div class="cart-drawer__footer">
         {% render 'loyalty-program', context: 'cart' %}
-        <a href="/cart" class="btn btn--secondary btn--full btn--lg cart-drawer__view-cart">View Cart</a>
-        <a href="/checkout" class="btn btn--primary btn--full btn--lg cart-drawer__checkout">Checkout</a>
+        <a href="{{ routes.cart_url }}" class="btn btn--secondary btn--full btn--lg cart-drawer__view-cart">View Cart</a>
+        <a href="{{ routes.cart_url }}" class="btn btn--primary btn--full btn--lg cart-drawer__checkout">Proceed to Checkout</a>
       </div>
     </div>
   </div>
