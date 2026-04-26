@@ -1,5 +1,5 @@
 /**
- * JIMBO'S IRON & THREAD SUPPLY CO.
+ * UNIFYONE MODERN COMMERCE THEME
  * Theme JavaScript — v2.0.0
  * Rebuilt: March 2026
  *

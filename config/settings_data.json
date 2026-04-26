@@ -9,54 +9,17 @@
  */
 {
   "current": {
-    "color_primary": "#8b7355",
-    "color_primary_hover": "#705a42",
-    "color_accent": "#d4af37",
-    "font_heading": "inter_n4",
-    "font_body": "open_sans_n4",
+    "color_primary": "#0f172a",
+    "color_primary_hover": "#1e293b",
+    "color_secondary": "#475569",
+    "color_accent": "#f97316",
+    "font_heading": "assistant_n6",
+    "font_body": "assistant_n4",
+    "font_size_base": 16,
+    "cart_type": "drawer",
+    "search_enable": true,
+    "search_show_products_only": false,
     "content_for_index": [],
-    "blocks": {
-      "14060646107696862457": {
-        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-        "disabled": false,
-        "settings": {}
-      },
-      "15683396631634586217": {
-        "type": "shopify://apps/inbox/blocks/chat/841fc607-4181-4ad1-842d-e24d7f8bad6b",
-        "disabled": false,
-        "settings": {
-          "button_color": "#000000",
-          "secondary_color": "#FFFFFF",
-          "ternary_color": "#6A6A6A",
-          "button_icon": "chat_bubble",
-          "button_text": "chat_with_us",
-          "button_horizontal_position": "bottom_right",
-          "button_vertical_position": "lowest",
-          "greeting_message": ""
-        }
-      },
-      "6588702529468458379": {
-        "type": "shopify://apps/ecomposer-builder/blocks/app-embed/a0fc26e1-7741-4773-8b27-39389b4fb4a0",
-        "disabled": false,
-        "settings": {}
-      },
-      "2680175748099902610": {
-        "type": "shopify://apps/amazon-reviews/blocks/product-rating-snippet-embed/88ab28f3-a438-4eb3-a83e-f1a9c62c5069",
-        "disabled": false,
-        "settings": {}
-      },
-      "7079518687644006178": {
-        "type": "shopify://apps/checkout-blocks/blocks/app-embed/b0024ca5-9de8-4bf0-a92f-cd0783877ae2",
-        "disabled": false,
-        "settings": {
-          "utm_id": true,
-          "utm_source": true,
-          "utm_medium": true,
-          "utm_campaign": true,
-          "utm_term": true,
-          "ref": true
-        }
-      }
-    }
+    "blocks": {}
   }
 }

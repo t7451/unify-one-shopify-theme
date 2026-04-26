@@ -1,5 +1,5 @@
 {% comment %}
-  JIMBO'S IRON & THREAD SUPPLY CO.
+  UNIFYONE MODERN COMMERCE THEME
   Snippet: Structured Data (JSON-LD)
   Version: 2.0.0
   Description: Outputs schema.org JSON-LD for Organization, WebSite,
@@ -18,16 +18,15 @@
     {
       "@type": "Organization",
       "@id": "{{ shop.url }}/#organization",
-      "name": "Jimbo's Iron & Thread Supply Co.",
+      "name": {{ shop.name | json }},
       "url": "{{ shop.url }}",
       "logo": {
         "@type": "ImageObject",
-        "url": "{{ 'jimbos-logo.png' | asset_url }}"
+        "url": "{% if settings.logo != blank %}{{ settings.logo | image_url: width: 512 }}{% else %}{{ 'favicon-placeholder.svg' | asset_url }}{% endif %}"
       },
-      "description": "Premium metalwork supplies, industrial hardware, and precision thread for craftsmen and fabricators.",
+      "description": {{ shop.description | default: "Modern commerce products and collections" | json }},
       "sameAs": [
-        "https://www.facebook.com/jimbosironandthread",
-        "https://www.instagram.com/jimbosironandthread"
+        {% if settings.social_facebook != blank %}{{ settings.social_facebook | json }}{% endif %}{% if settings.social_facebook != blank and settings.social_instagram != blank %},{% endif %}{% if settings.social_instagram != blank %}{{ settings.social_instagram | json }}{% endif %}
       ],
       "contactPoint": {
         "@type": "ContactPoint",
@@ -67,7 +66,7 @@
     "sku": {{ current_variant.sku | json }},
     "brand": {
       "@type": "Brand",
-      "name": {{ product.vendor | default: "Jimbo's Iron & Thread Supply Co." | json }}
+      "name": {{ product.vendor | default: shop.name | json }}
     },
     {%- if product.featured_image != blank -%}
     "image": [
@@ -88,7 +87,7 @@
       "availability": "{% if current_variant.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
       "seller": {
         "@type": "Organization",
-        "name": "Jimbo's Iron & Thread Supply Co."
+        "name": {{ shop.name | json }}
       }
     }
     {%- comment -%}

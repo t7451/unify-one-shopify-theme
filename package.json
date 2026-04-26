@@ -1,19 +1,13 @@
 {
   "name": "unify-one-shopify-theme",
-  "version": "1.0.0",
-  "description": "UnifyOne custom Shopify Liquid CSS theme for 1commerce.shop",
+  "version": "1.1.0",
+  "description": "Reusable Shopify Liquid theme template for modern commerce stores",
   "main": "index.js",
   "scripts": {
-    "dev": "shopify theme dev --store 1commerce.shop",
-    "watch": "shopify theme watch",
+    "dev": "shopify theme dev --store $SHOPIFY_FLAG_STORE",
     "lint": "shopify theme check",
-    "lint:liquid": "shopify theme check --fail-level info",
-    "deploy:staging": "shopify theme push --to 'Staging' --allow-live",
-    "deploy:production": "shopify theme push --allow-live",
-    "build": "npm run lint && npm run optimize",
-    "optimize": "node scripts/optimize-assets.js",
-    "test": "jest",
-    "format": "prettier --write \"**/*.{js,json,liquid,css}\""
+    "format": "prettier --write \"**/*.{js,json,liquid,css,md}\"",
+    "package": "node scripts/package-theme.js"
   },
   "keywords": [
     "shopify",
@@ -22,8 +16,8 @@
     "ecommerce",
     "unify-one"
   ],
-  "author": "PNW Enterprises",
-  "license": "PROPRIETARY",
+  "author": "UnifyOne Themes",
+  "license": "SEE LICENSE IN LICENSE.md",
   "devDependencies": {
     "@shopify/cli": "^3.89.0",
     "eslint": "^8.57.0",
